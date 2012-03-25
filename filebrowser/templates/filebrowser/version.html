@@ -1,17 +1,19 @@
 {% extends "admin/base_site.html" %}
 
 <!-- LOADING -->
-{% load i18n adminmedia fb_tags fb_versions %}
+{% load i18n static fb_tags fb_versions %}
 
 <!-- STYLESHEETS -->
-{% block stylesheets %}
+{% block extrastyle %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/filebrowser.css" />
 {% endblock %}
 
 <!-- JAVASCRIPTS -->
-{% block javascripts %}
+{% block extrahead %}
     {{ block.super }}
+	<script type="text/javascript" src="{% get_static_prefix %}admin/js/jquery.min.js"></script>
+	<script type="text/javascript" src="{% get_static_prefix %}admin/js/jquery.init.js"></script>
     {% ifequal query.pop '1' %} <!-- FileBrowseField -->
     <script language="javascript" type="text/javascript" src="{{ settings_var.URL_FILEBROWSER_MEDIA }}js/FB_FileBrowseField.js"></script>
     {% endifequal %}
@@ -41,7 +43,7 @@
         <script type="text/javascript" charset="utf-8">
             (function($) {
                 $(document).ready(function() {
-                    FileSubmit('{{ image_version.path }}', '{{ image_version.url }}', '{{ thumbnail_version.url }}', '{{ image_version.filetype }}');
+                    FileSubmit('{{ image_version.path }}', '{{ image_version.url }}', '{{ image_version.filetype }}');
                 });
             })(django.jQuery);
         </script>
