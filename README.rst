@@ -23,6 +23,13 @@ No Grappelli
 Based on the work of various authors to remove the original's package link
 with Grappelli.
 
+Installation
+------------
+
+Use `pip` to install this fork with the `-e` argument.
+
+    pip install -e git+git://github.com/Bouke/django-filebrowser-no-grappelli.git#egg=django-filebrowser
+
 Documentation
 -------------
 
