@@ -219,7 +219,7 @@ class FileBrowserSite(object):
             sorting_by=query.get('o', DEFAULT_SORTING_BY),
             sorting_order=query.get('ot', DEFAULT_SORTING_ORDER),
             site=self)
-        
+
         files = []
         if SEARCH_TRAVERSE and query.get("q"):
             listing = filelisting.files_walk_filtered()
@@ -481,14 +481,11 @@ class FileBrowserSite(object):
                 except KeyError:
                     return HttpResponseBadRequest('Invalid request! No filename given.')
             else: # Basic (iframe) submission
-                # TODO: This needs some attention, do we use this at all?
-                folder = request.POST.get('folder')
-                if len(request.FILES) == 1:
-                    filedata = request.FILES.values()[0]
-                else:
-                    raise Http404('Invalid request! Multiple files included.')
-                # filedata.name = convert_filename(upload.name)
-                filedata.name = convert_filename(request.POST.get('file_name'))
+                # Q: This needs some attention, do we use this at all?
+                # A: YES, for IE
+                folder = request.GET.get('folder')
+                filedata = request.FILES.get('qqfile')
+                filedata.name = convert_filename(filedata.name)
 
             fb_uploadurl_re = re.compile(r'^.*(%s)' % reverse("filebrowser:fb_upload", current_app=self.name))
             folder = fb_uploadurl_re.sub('', folder)
